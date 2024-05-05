@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  """id in string format for mongodb"""
+  id: String!
+  name: String
+  email: String!
+  status: String!
+}
+
 type Product {
   """id in string format for mongodb"""
   id: String!
@@ -12,23 +20,39 @@ type Product {
 }
 
 type Query {
+  users: [User!]!
+  user(id: String!): User!
   products: [Product!]!
   product(id: String!): Product!
 }
 
 type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: String!): User!
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(updateProductInput: UpdateProductInput!): Product!
-  removeProduct(id: Int!): Product!
+  removeProduct(id: String!): Product!
+}
+
+input CreateUserInput {
+  """Example field (placeholder)"""
+  exampleField: String!
+}
+
+input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: String
+  id: String!
 }
 
 input CreateProductInput {
   """Example field (placeholder)"""
-  exampleField: Int!
+  exampleField: String!
 }
 
 input UpdateProductInput {
   """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  exampleField: String
+  id: String!
 }

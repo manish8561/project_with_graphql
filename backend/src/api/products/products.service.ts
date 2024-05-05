@@ -9,23 +9,33 @@ export class ProductsService {
   }
 
   findAll() {
-    return `This action returns all products`;
+    // return `This action returns all products`;
+    return [
+      {
+        id: "first",
+        name: "First Product",
+        description: "First Product Description",
+        price: 10.5,
+        status: "active",
+      },
+    ];
   }
 
   findOne(id: string) {
-    // return `This action returns a #${id} product`;
     return {
-      id: "first",
+      id,
       name: "First Product",
       description: "First Product Description",
+      price: 10.5,
+      status: "active",
     };
   }
 
-  update(id: number, updateProductInput: UpdateProductInput) {
+  update(id: string, updateProductInput: UpdateProductInput) {
     return `This action updates a #${id} product`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} product`;
   }
 }
