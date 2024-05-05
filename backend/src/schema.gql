@@ -2,12 +2,20 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type UserSetting {
+  """id in string format for mongodb"""
+  userId: String!
+  receiveNotifications: Boolean!
+  receiveEmails: Boolean!
+}
+
 type User {
   """id in string format for mongodb"""
   id: String!
   name: String
   email: String!
   status: String!
+  settings: UserSetting!
 }
 
 type Product {
@@ -28,6 +36,7 @@ type Query {
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
+  createUserSetting(createUserSettingInput: CreateUserSettingInput!): UserSetting!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: String!): User!
   createProduct(createProductInput: CreateProductInput!): Product!
@@ -37,13 +46,21 @@ type Mutation {
 
 input CreateUserInput {
   """Example field (placeholder)"""
-  exampleField: String!
+  id: String!
+  name: String
+  email: String!
+}
+
+input CreateUserSettingInput {
+  userId: String!
+  receiveNotifications: Boolean = false
+  receiveEmails: Boolean = false
 }
 
 input UpdateUserInput {
-  """Example field (placeholder)"""
-  exampleField: String
   id: String!
+  name: String
+  email: String
 }
 
 input CreateProductInput {

@@ -1,11 +1,27 @@
 import { Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
+import { CreateUserInput } from "./dto/create-user.input";
+import { CreateUserSettingInput } from "./dto/create-user-setting.input";
 
 @Injectable()
 export class UsersService {
   create(createUserDto: CreateUserDto) {
     return "This action adds a new user";
+  }
+
+  createUser(createUserInput: CreateUserInput) {
+    console.log(createUserInput);
+    return {
+      id: createUserInput.id,
+    };
+  }
+
+  createUserSetting(createUserSettingInput: CreateUserSettingInput) {
+    console.log(createUserSettingInput);
+    return {
+      userId: createUserSettingInput.userId,
+    };
   }
 
   findAll() {
