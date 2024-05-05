@@ -11,9 +11,8 @@ import { User } from "./entities/user.entity";
 import { CreateUserInput } from "./dto/create-user.input";
 import { UpdateUserInput } from "./dto/update-user.input";
 import { UserSetting } from "./entities/user-setting.entity";
-import { CreateUserSettingInput } from "./dto/create-user-setting.input";
 
-@Resolver(() => User)
+@Resolver((of) => User)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
@@ -38,14 +37,6 @@ export class UsersResolver {
   @Mutation(() => User)
   createUser(@Args("createUserInput") createUserInput: CreateUserInput) {
     return this.usersService.createUser(createUserInput);
-  }
-
-  @Mutation(() => UserSetting)
-  createUserSetting(
-    @Args("createUserSettingInput")
-    createUserSettingInput: CreateUserSettingInput,
-  ) {
-    return this.usersService.createUserSetting(createUserSettingInput);
   }
 
   @Mutation(() => User)

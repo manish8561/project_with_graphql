@@ -36,9 +36,9 @@ type Query {
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
-  createUserSetting(createUserSettingInput: CreateUserSettingInput!): UserSetting!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: String!): User!
+  createUserSetting(createUserSettingInput: CreateUserSettingInput!): UserSetting!
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(updateProductInput: UpdateProductInput!): Product!
   removeProduct(id: String!): Product!
@@ -51,16 +51,16 @@ input CreateUserInput {
   email: String!
 }
 
-input CreateUserSettingInput {
-  userId: String!
-  receiveNotifications: Boolean = false
-  receiveEmails: Boolean = false
-}
-
 input UpdateUserInput {
   id: String!
   name: String
   email: String
+}
+
+input CreateUserSettingInput {
+  userId: String!
+  receiveNotifications: Boolean = false
+  receiveEmails: Boolean = false
 }
 
 input CreateProductInput {

@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { CreateUserInput } from "./dto/create-user.input";
-import { CreateUserSettingInput } from "./dto/create-user-setting.input";
 
 @Injectable()
 export class UsersService {
@@ -14,13 +13,6 @@ export class UsersService {
     console.log(createUserInput);
     return {
       id: createUserInput.id,
-    };
-  }
-
-  createUserSetting(createUserSettingInput: CreateUserSettingInput) {
-    console.log(createUserSettingInput);
-    return {
-      userId: createUserSettingInput.userId,
     };
   }
 
