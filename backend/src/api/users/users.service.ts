@@ -2,11 +2,17 @@ import { Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { CreateUserInput } from "./dto/create-user.input";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { User } from "./entities/user.entity";
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return "This action adds a new user";
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const createdUser = new this.userModel(createUserDto);
+    return createdUser.save();
   }
 
   createUser(createUserInput: CreateUserInput) {
@@ -16,17 +22,12 @@ export class UsersService {
     };
   }
 
-  findAll() {
-    return `This action returns all users`;
+  findAll(): Promise<User[]> {
+    return this.userModel.find().exec();
   }
 
-  findOne(id: string) {
-    return {
-      id,
-      name: "Manish Sharma",
-      email: "manish@gmail.com",
-      status: "active",
-    };
+  findOne(id: string): Promise<User> {
+    return this.userModel.findOne({ id }).exec();
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
