@@ -9,17 +9,18 @@ import { MongooseModule } from "@nestjs/mongoose";
 
 @Module({
   imports: [
-    // MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-    MongooseModule.forFeatureAsync([
-      {
-        name: User.name,
-        useFactory: () => {
-          const schema = UsersSchema;
-          schema.plugin(require("mongoose-autopopulate"));
-          return schema;
-        },
-      },
-    ]),
+    MongooseModule.forFeature([{ name: User.name, schema: UsersSchema }]),
+    // to implement plugin at schema level
+    // MongooseModule.forFeatureAsync([
+    //   {
+    //     name: User.name,
+    //     useFactory: () => {
+    //       const schema = UsersSchema;
+    //       schema.plugin(require("mongoose-autopopulate"));
+    //       return schema;
+    //     },
+    //   },
+    // ]),
   ],
   controllers: [UsersController],
   providers: [

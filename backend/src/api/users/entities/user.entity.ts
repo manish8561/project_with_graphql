@@ -5,18 +5,17 @@ import mongoose, { HydratedDocument } from "mongoose";
 
 export type UserDocument = HydratedDocument<User>;
 
-@Schema()
+@Schema({ timestamps: true })
 @ObjectType()
 export class User {
-  @Prop()
-  @Field(() => String, { description: "id in string format for mongodb" })
-  id: string;
+  @Field(() => String, { description: "_id in string format for mongodb" })
+  _id: string;
 
   @Prop()
   @Field({ nullable: true })
   name: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   @Field()
   email?: string;
 
@@ -24,7 +23,17 @@ export class User {
   @Field({ defaultValue: "active" })
   status: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Usersetting" })
+  @Field()
+  createdAt: Date;
+
+  @Field()
+  updatedAt: Date;
+
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Usersetting",
+    autopopulate: true,
+  })
   @Field({ nullable: true })
   settings?: UserSetting;
 }

@@ -3,20 +3,27 @@
 # ------------------------------------------------------
 
 type UserSetting {
-  """id in string format for mongodb"""
+  """userId in string format for mongodb"""
   userId: String!
   receiveNotifications: Boolean!
   receiveEmails: Boolean!
 }
 
 type User {
-  """id in string format for mongodb"""
-  id: String!
+  """_id in string format for mongodb"""
+  _id: String!
   name: String
   email: String!
   status: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   settings: UserSetting!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type Product {
   """id in string format for mongodb"""
@@ -35,7 +42,7 @@ type Query {
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User!
+  createUser(createUserDto: CreateUserDto!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: String!): User!
   createUserSetting(createUserSettingInput: CreateUserSettingInput!): UserSetting!
@@ -44,17 +51,16 @@ type Mutation {
   removeProduct(id: String!): Product!
 }
 
-input CreateUserInput {
-  """Example field (placeholder)"""
-  id: String!
+input CreateUserDto {
   name: String
   email: String!
 }
 
 input UpdateUserInput {
-  id: String!
   name: String
   email: String
+  id: String!
+  status: String! = "active"
 }
 
 input CreateUserSettingInput {
