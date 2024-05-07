@@ -6,10 +6,14 @@ import { UsersSettingService } from "./users-setting.service";
 import { UsersSettingResolver } from "./users-setting.resolver";
 import { User, UsersSchema } from "./entities/user.entity";
 import { MongooseModule } from "@nestjs/mongoose";
+import { UserSetting, UserSettingSchema } from "./entities/user-setting.entity";
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: User.name, schema: UsersSchema }]),
+    MongooseModule.forFeature([
+      { name: User.name, schema: UsersSchema },
+      { name: UserSetting.name, schema: UserSettingSchema },
+    ]),
     // to implement plugin at schema level
     // MongooseModule.forFeatureAsync([
     //   {

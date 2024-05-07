@@ -1,7 +1,8 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { UserSetting } from "./user-setting.entity";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import mongoose, { HydratedDocument } from "mongoose";
+import { HydratedDocument } from "mongoose";
+import { USER_STATUS } from "src/constants/enums";
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -19,8 +20,8 @@ export class User {
   @Field()
   email?: string;
 
-  @Prop()
-  @Field({ defaultValue: "active" })
+  @Prop({ default: USER_STATUS.Active })
+  @Field({ defaultValue: USER_STATUS.Active })
   status: string;
 
   @Field()
@@ -29,11 +30,7 @@ export class User {
   @Field()
   updatedAt: Date;
 
-  @Prop({
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Usersetting",
-    autopopulate: true,
-  })
+  // show field in graphql
   @Field({ nullable: true })
   settings?: UserSetting;
 }

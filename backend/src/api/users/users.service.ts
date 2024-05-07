@@ -4,15 +4,13 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from "./entities/user.entity";
-import { UpdateUserInput } from "./dto/update-user.input";
+import { RECORD_NOT_FOUND } from "src/constants";
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const user: any = createUserDto;
-    user.status = "active";
     const createdUser = new this.userModel(createUserDto);
     return createdUser.save();
   }
@@ -25,14 +23,10 @@ export class UsersService {
     return this.userModel.findOne({ _id }).exec();
   }
 
-  async update(
-    _id: string,
-    updateUserDto: UpdateUserDto | UpdateUserInput,
-  ): Promise<User> {
-    console.log(_id, updateUserDto);
+  async update(_id: string, updateUserDto: UpdateUserDto): Promise<User> {
     const user = await this.userModel.findOne({ _id });
     if (!user) {
-      throw new Error("Record Not Found");
+      throw new Error(RECORD_NOT_FOUND);
     }
     user.name = updateUserDto.name;
     user.status = updateUserDto.status;
@@ -40,10 +34,10 @@ export class UsersService {
     return user;
   }
 
-  async remove(_id: string): Promise<{ _id: string }> {
+  async remove(_id: string): Promise<User> {
     const user = await this.userModel.findOne({ _id });
     if (!user) {
-      throw new Error("Record Not Found");
+      throw new Error(RECORD_NOT_FOUND);
     }
     await user.deleteOne();
     return user;

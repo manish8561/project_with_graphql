@@ -7,6 +7,7 @@ import { ProductsModule } from "./api/products/products.module";
 import { join } from "path";
 import { MongooseModule } from "@nestjs/mongoose";
 import * as MongooseAutopopulate from "mongoose-autopopulate";
+import mongoose from "mongoose";
 
 @Module({
   imports: [
@@ -19,6 +20,8 @@ import * as MongooseAutopopulate from "mongoose-autopopulate";
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get<string>("MONGODB_URI"),
         connectionFactory: (connection) => {
+          //setting debuging enable
+          mongoose.set("debug", true);
           connection.plugin(MongooseAutopopulate);
           return connection;
         },
