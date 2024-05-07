@@ -28,8 +28,9 @@ export class UsersSettingService {
    * @returns
    */
   async getUserSetting(userId: string): Promise<UserSetting> {
-    return this.userSettingModel
-      .findOne({ userId }, { receiveNotifications: 1, receiveEmails: 1 })
-      .exec();
+    return this.userSettingModel.findOne(
+      { userId },
+      { receiveNotifications: 1, receiveEmails: 1 },
+    );
   }
 }

@@ -16,11 +16,11 @@ export class UsersService {
   }
 
   findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
+    return this.userModel.find();
   }
 
   findOne(_id: string): Promise<User> {
-    return this.userModel.findOne({ _id }).exec();
+    return this.userModel.findOne({ _id });
   }
 
   async update(_id: string, updateUserDto: UpdateUserDto): Promise<User> {
